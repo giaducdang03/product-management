@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ProductManagement.API.ViewModels.ResponseModels;
 using ProductManagement.Repository.Commons;
+using ProductManagement.Service.BussinessModels;
 using ProductManagement.Service.Interfaces;
 using ProductManagement.Service.Services;
 
@@ -65,6 +66,28 @@ namespace ProductManagement.API.Controllers
                     });
                 }
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseModel
+                {
+                    HttpCode = 400,
+                    Message = ex.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct(CreateProductModel productModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _productService.CreateProductAsync(productModel);
+                    return Ok(result);
+                }
+                return ValidationProblem(ModelState);
             }
             catch (Exception ex)
             {

@@ -22,8 +22,9 @@ builder.Services.AddDbContext<FstoreDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(MapperConfigProfile).Assembly);
 
 // add DI
-builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 

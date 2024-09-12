@@ -13,5 +13,7 @@ namespace ProductManagement.Service.Interfaces
         Task<ProductModel> GetProductByIdAsync(int id);
 
         Task<Pagination<ProductModel>> GetPagingProductsAsync(PaginationParameter paginationParameter);
+
+        Task<ProductModel> CreateProductAsync(CreateProductModel product);
     }
 }
