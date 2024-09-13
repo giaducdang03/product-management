@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ProductManagement.API.ViewModels.ResponseModels;
 using ProductManagement.Repository.Commons;
+using ProductManagement.Service.BussinessModels;
 using ProductManagement.Service.Interfaces;
 using ProductManagement.Service.Services;
 
@@ -14,7 +15,7 @@ namespace ProductManagement.API.Controllers
     {
         private readonly ICategoryService _categoryService;
 
-        public CategoriesController(ICategoryService categoryService) 
+        public CategoriesController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
@@ -63,6 +64,90 @@ namespace ProductManagement.API.Controllers
 
                 Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(
+                    new ResponseModel()
+                    {
+                        HttpCode = StatusCodes.Status400BadRequest,
+                        Message = ex.Message.ToString()
+                    }
+               );
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory(CreateCategoryModel categoryModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _categoryService.CreateCategoryAsync(categoryModel);
+                    return Ok(result);
+                }
+                return ValidationProblem(ModelState);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseModel
+                {
+                    HttpCode = 400,
+                    Message = ex.Message
+                });
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCategory(int id, CreateCategoryModel updateCategory)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    CategoryModel updateCategoryModel = new CategoryModel
+                    {
+                        CategoryId = id,
+                        CategoryName = updateCategory.Categoryname,
+                    };
+                    var result = await _categoryService.UpdateCategoryAsync(updateCategoryModel);
+                    return Ok(result);
+                }
+                return ValidationProblem(ModelState);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(
+                    new ResponseModel()
+                    {
+                        HttpCode = StatusCodes.Status400BadRequest,
+                        Message = ex.Message.ToString()
+                    }
+               );
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            try
+            {
+                var result = await _categoryService.DeleteCategoryAsync(id);
+                if (result != null)
+                {
+                    return Ok(new ResponseModel
+                    {
+                        HttpCode = StatusCodes.Status200OK,
+                        Message = $"Delete category '{result.CategoryName}' successfully."
+                    });
+                }
+                else
+                {
+                    throw new Exception("Can not delete category.");
+                }
+
             }
             catch (Exception ex)
             {

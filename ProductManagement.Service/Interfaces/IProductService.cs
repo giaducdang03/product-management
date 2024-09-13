@@ -1,4 +1,5 @@
 ﻿using ProductManagement.Repository.Commons;
+using ProductManagement.Repository.Models;
 using ProductManagement.Service.BussinessModels;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,9 @@ namespace ProductManagement.Service.Interfaces
         Task<Pagination<ProductModel>> GetPagingProductsAsync(PaginationParameter paginationParameter);
 
         Task<ProductModel> CreateProductAsync(CreateProductModel product);
+
+        Task<ProductModel> UpdateProductAsync(int productId, CreateProductModel productModel);
+
+        Task<ProductModel> DeleteProductAsync(int productId);
     }
 }

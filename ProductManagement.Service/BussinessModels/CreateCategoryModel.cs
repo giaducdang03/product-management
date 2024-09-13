@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 
 namespace ProductManagement.Service.BussinessModels
 {
-    public class CategoryModel
+    public class CreateCategoryModel
     {
         [Required]
-        public int CategoryId { get; set; }
-
-        [Required]
-        public string CategoryName { get; set; } = null!;
+        public string Categoryname { get; set; } = "";
     }
 }

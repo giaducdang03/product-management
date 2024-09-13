@@ -1,4 +1,5 @@
 ﻿using ProductManagement.Repository.Commons;
+using ProductManagement.Repository.Models;
 using ProductManagement.Service.BussinessModels;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,10 @@ namespace ProductManagement.Service.Interfaces
 
         Task<Pagination<CategoryModel>> GetPagingCategoriesAsync(PaginationParameter paginationParameter);
 
-        //Task<CategoryModel> CreateProductAsync(CreateProductModel product);
+        Task<CategoryModel> CreateCategoryAsync(CreateCategoryModel categoryModel);
+
+        Task<CategoryModel> UpdateCategoryAsync(CategoryModel categoryModel);
+
+        Task<CategoryModel> DeleteCategoryAsync(int id);
     }
 }

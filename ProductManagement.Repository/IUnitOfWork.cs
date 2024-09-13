@@ -14,7 +14,7 @@ namespace ProductManagement.Repository
         IGenericRepository<Member> MembersRepository { get; }
         IGenericRepository<Order> OrdersRepository { get; }
         IGenericRepository<OrderDetail> OrderDetailsRepository { get; }
-        IGenericRepository<Product> ProductsRepository { get; }
+        IProductRepository ProductsRepository { get; }
         int Save();
     }
 }

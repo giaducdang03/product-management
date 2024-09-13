@@ -16,7 +16,7 @@ namespace ProductManagement.Repository
         private IGenericRepository<Member> _memberRepository;
         private IGenericRepository<Order> _orderRepository;
         private IGenericRepository<OrderDetail> _orderDetailRepository;
-        private IGenericRepository<Product> _productRepository;
+        private IProductRepository _productRepository;
 
         public UnitOfWork(FstoreDbContext context)
         {
@@ -59,11 +59,11 @@ namespace ProductManagement.Repository
             }
         }
 
-        public IGenericRepository<Product> ProductsRepository
+        public IProductRepository ProductsRepository
         {
             get
             {
-                return _productRepository ??= new GenericRepository<Product>(_context);
+                return _productRepository ??= new ProductRepository(_context) ;
 
             }
         }

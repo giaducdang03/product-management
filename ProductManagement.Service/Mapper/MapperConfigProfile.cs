@@ -17,7 +17,7 @@ namespace ProductManagement.Service.Mapper
                 ForMember(des => des.CategoryName, otp => otp.MapFrom(x => x.Category.CategoryName))
                 .ReverseMap();
             CreateMap<CreateProductModel, Product>();
-
+            
             CreateMap<Category, CategoryModel>();
         }
     }

@@ -27,7 +27,7 @@ namespace ProductManagement.Repository.Repositories
         public async Task<Pagination<Product>> GetProductPaging(PaginationParameter paginationParameter)
         {
             var itemCount = await _context.Products.CountAsync();
-            var items = await _context.Products.Skip((paginationParameter.PageIndex - 1) * paginationParameter.PageSize)
+            var items = await _context.Products.Include(x => x.Category).Skip((paginationParameter.PageIndex - 1) * paginationParameter.PageSize)
                                     .Take(paginationParameter.PageSize)
                                     .AsNoTracking()
                                     .ToListAsync();

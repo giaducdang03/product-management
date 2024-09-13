@@ -37,7 +37,7 @@ public partial class FstoreDbContext : DbContext
 
             entity.ToTable("Category");
 
-            entity.Property(e => e.CategoryId).ValueGeneratedNever();
+            //entity.Property(e => e.CategoryId).ValueGeneratedNever();
             entity.Property(e => e.CategoryName)
                 .HasMaxLength(40)
                 .IsUnicode(false);
@@ -49,7 +49,7 @@ public partial class FstoreDbContext : DbContext
 
             entity.ToTable("Member");
 
-            entity.Property(e => e.MemberId).ValueGeneratedNever();
+            //entity.Property(e => e.MemberId).ValueGeneratedNever();
             entity.Property(e => e.City)
                 .HasMaxLength(15)
                 .IsUnicode(false);
@@ -73,7 +73,7 @@ public partial class FstoreDbContext : DbContext
 
             entity.ToTable("Order");
 
-            entity.Property(e => e.OrderId).ValueGeneratedNever();
+            //entity.Property(e => e.OrderId).ValueGeneratedNever();
             entity.Property(e => e.Freight).HasColumnType("money");
             entity.Property(e => e.OrderDate).HasColumnType("datetime");
             entity.Property(e => e.RequiredDate).HasColumnType("datetime");
@@ -108,7 +108,7 @@ public partial class FstoreDbContext : DbContext
 
             entity.ToTable("Product");
 
-            entity.Property(e => e.ProductId).ValueGeneratedNever();
+            //entity.Property(e => e.ProductId).ValueGeneratedNever();
             entity.Property(e => e.ProductName)
                 .HasMaxLength(40)
                 .IsUnicode(false);

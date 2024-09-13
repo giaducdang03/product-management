@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ProductManagement.API.ViewModels.ResponseModels;
 using ProductManagement.Repository.Commons;
+using ProductManagement.Repository.Models;
 using ProductManagement.Service.BussinessModels;
 using ProductManagement.Service.Interfaces;
 using ProductManagement.Service.Services;
@@ -14,10 +16,12 @@ namespace ProductManagement.API.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly IMapper _mapper;
 
-        public ProductsController(IProductService productService) 
+        public ProductsController(IProductService productService, IMapper mapper) 
         {
             _productService = productService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -96,6 +100,63 @@ namespace ProductManagement.API.Controllers
                     HttpCode = 400,
                     Message = ex.Message
                 });
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProduct(int id, CreateProductModel updateProductModel)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var result = await _productService.UpdateProductAsync(id, updateProductModel);
+                    return Ok(result);
+                }
+                return ValidationProblem(ModelState);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(
+                    new ResponseModel()
+                    {
+                        HttpCode = StatusCodes.Status400BadRequest,
+                        Message = ex.Message.ToString()
+                    }
+               );
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            try
+            {
+                var result = await _productService.DeleteProductAsync(id);
+                if (result != null)
+                {
+                    return Ok(new ResponseModel
+                    {
+                        HttpCode = StatusCodes.Status200OK,
+                        Message = $"Delete product '{result.ProductName}' successfully."
+                    });
+                }
+                else
+                {
+                    throw new Exception("Can not delete product.");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(
+                    new ResponseModel()
+                    {
+                        HttpCode = StatusCodes.Status400BadRequest,
+                        Message = ex.Message.ToString()
+                    }
+               );
             }
         }
     }
