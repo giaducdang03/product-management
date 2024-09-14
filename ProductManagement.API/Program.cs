@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<FstoreDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("FstoreDB"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("FstoreDB"), options => options.EnableRetryOnFailure());
 });
 
 builder.Services.AddAutoMapper(typeof(MapperConfigProfile).Assembly);
