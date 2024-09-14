@@ -11,3 +11,26 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:8081;http://+:8080
       - ASPNETCORE_HTTPS_PORT=8081
+    depends_on:
+      - fstoredb
+    networks:
+      - fstore-network
+
+  fstoredb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - MSSQL_SA_PASSWORD=Abc@12345
+      - ACCEPT_EULA=Y
+    ports:
+      - "1440:1433"
+    volumes:
+      - fstoredb_data:/var/opt/mssql
+    networks:
+      - fstore-network
+
+volumes:
+  fstoredb_data:
+
+networks:
+  fstore-network:
+    driver: bridge
