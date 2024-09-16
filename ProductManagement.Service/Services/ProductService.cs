@@ -64,7 +64,7 @@ namespace ProductManagement.Service.Services
 
         public async Task<ProductModel> GetProductByIdAsync(int id)
         {
-            var product = await _unitOfWork.ProductsRepository.GetByIdAsync(id);
+            var product = await _unitOfWork.ProductsRepository.GetProductById(id);
             return product != null ? _mapper.Map<ProductModel>(product) : null;
         }
 
