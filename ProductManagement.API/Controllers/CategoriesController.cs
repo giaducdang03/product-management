@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ProductManagement.API.ViewModels.ResponseModels;
@@ -85,7 +86,7 @@ namespace ProductManagement.API.Controllers
                 if (ModelState.IsValid)
                 {
                     var result = await _categoryService.CreateCategoryAsync(categoryModel);
-                    return Ok(result);
+                    return Created("Create category successfully", result);
                 }
                 return ValidationProblem(ModelState);
             }

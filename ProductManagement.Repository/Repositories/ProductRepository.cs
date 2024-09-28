@@ -24,16 +24,52 @@ namespace ProductManagement.Repository.Repositories
             return await _context.Products.Include(x => x.Category).FirstOrDefaultAsync(x => x.ProductId == id);
         }
 
-        public async Task<Pagination<Product>> GetProductPaging(PaginationParameter paginationParameter)
+        public async Task<Pagination<Product>> GetProductPaging(PaginationParameter paginationParameter, ProductFilter productFilter)
         {
-            var itemCount = await _context.Products.CountAsync();
-            var items = await _context.Products.Include(x => x.Category).Skip((paginationParameter.PageIndex - 1) * paginationParameter.PageSize)
+            var query = _context.Products.Include(x => x.Category).AsQueryable();
+
+            // apply filter
+            query = ApplyFiltering(query, productFilter);
+
+            var itemCount = await query.CountAsync();
+            var items = await query.Skip((paginationParameter.PageIndex - 1) * paginationParameter.PageSize)
                                     .Take(paginationParameter.PageSize)
                                     .AsNoTracking()
                                     .ToListAsync();
             var result = new Pagination<Product>(items, itemCount, paginationParameter.PageIndex, paginationParameter.PageSize);
 
             return result;
+        }
+
+        public IQueryable<Product> ApplyFiltering(IQueryable<Product> query, ProductFilter filter)
+        {
+            if (!string.IsNullOrWhiteSpace(filter.Search))
+            {
+                query = query.Where(s => s.ProductName.Contains(filter.Search));
+            }
+
+            if (filter.Category != null)
+            {
+                query = query.Where(s => s.CategoryId == filter.Category);
+            }
+
+            if (!string.IsNullOrWhiteSpace(filter.SortBy))
+            {
+                switch (filter.SortBy.ToLower())
+                {
+                    case "name":
+                        query = filter.Dir?.ToLower() == "desc" ? query.OrderByDescending(s => s.ProductName) : query.OrderBy(s => s.ProductName);
+                        break;
+                    case "price":
+                        query = filter.Dir?.ToLower() == "desc" ? query.OrderByDescending(s => s.UnitPrice) : query.OrderBy(s => s.UnitPrice);
+                        break;
+                    default:
+                        query = query.OrderBy(s => s.ProductId); // Default sort by Id
+                        break;
+                }
+            }
+
+            return query;
         }
     }
 }

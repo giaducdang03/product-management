@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ProductManagement.API.ViewModels.ResponseModels;
@@ -25,11 +26,11 @@ namespace ProductManagement.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts([FromQuery] PaginationParameter paginationParameter)
+        public async Task<IActionResult> GetAllProducts([FromQuery] PaginationParameter paginationParameter, ProductFilter productFilter)
         {
             try
             {
-                var result = await _productService.GetPagingProductsAsync(paginationParameter);
+                var result = await _productService.GetPagingProductsAsync(paginationParameter, productFilter);
                 var metadata = new
                 {
                     result.TotalCount,
@@ -46,7 +47,7 @@ namespace ProductManagement.API.Controllers
             catch (Exception ex)
             {
                 return BadRequest(
-                    new ResponseModel()
+                    new ResponseModel
                     {
                         HttpCode = StatusCodes.Status400BadRequest,
                         Message = ex.Message.ToString()
@@ -89,7 +90,7 @@ namespace ProductManagement.API.Controllers
                 if (ModelState.IsValid)
                 {
                     var result = await _productService.CreateProductAsync(productModel);
-                    return Ok(result);
+                    return Created("Create product successfully", result);
                 }
                 return ValidationProblem(ModelState);
             }
@@ -119,7 +120,7 @@ namespace ProductManagement.API.Controllers
             catch (Exception ex)
             {
                 return BadRequest(
-                    new ResponseModel()
+                    new ResponseModel
                     {
                         HttpCode = StatusCodes.Status400BadRequest,
                         Message = ex.Message.ToString()
@@ -151,7 +152,7 @@ namespace ProductManagement.API.Controllers
             catch (Exception ex)
             {
                 return BadRequest(
-                    new ResponseModel()
+                    new ResponseModel
                     {
                         HttpCode = StatusCodes.Status400BadRequest,
                         Message = ex.Message.ToString()

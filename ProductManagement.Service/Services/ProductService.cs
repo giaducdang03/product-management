@@ -52,9 +52,9 @@ namespace ProductManagement.Service.Services
             return _mapper.Map<ProductModel>(deleteProduct);
         }
 
-        public async Task<Pagination<ProductModel>> GetPagingProductsAsync(PaginationParameter paginationParameter)
+        public async Task<Pagination<ProductModel>> GetPagingProductsAsync(PaginationParameter paginationParameter, ProductFilter productFilter)
         {
-            var products = await _unitOfWork.ProductsRepository.GetProductPaging(paginationParameter);
+            var products = await _unitOfWork.ProductsRepository.GetProductPaging(paginationParameter, productFilter);
             var productModels = _mapper.Map<List<ProductModel>>(products);
             return new Pagination<ProductModel>(productModels,
                 products.TotalCount,

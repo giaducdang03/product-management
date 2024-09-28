@@ -10,7 +10,7 @@ namespace ProductManagement.Repository.Interfaces
 {
     public interface IProductRepository : IGenericRepository<Product>
     {
-        Task<Pagination<Product>> GetProductPaging(PaginationParameter paginationParameter);
+        Task<Pagination<Product>> GetProductPaging(PaginationParameter paginationParameter, ProductFilter productFilter);
 
         Task<Product> GetProductById(int id);
     }
