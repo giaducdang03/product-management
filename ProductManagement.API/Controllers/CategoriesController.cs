@@ -100,19 +100,14 @@ namespace ProductManagement.API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCategory(int id, CreateCategoryModel updateCategory)
+        [HttpPut]
+        public async Task<IActionResult> UpdateCategory(CategoryModel categoryModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    CategoryModel updateCategoryModel = new CategoryModel
-                    {
-                        CategoryId = id,
-                        CategoryName = updateCategory.Categoryname,
-                    };
-                    var result = await _categoryService.UpdateCategoryAsync(updateCategoryModel);
+                    var result = await _categoryService.UpdateCategoryAsync(categoryModel);
                     return Ok(result);
                 }
                 return ValidationProblem(ModelState);

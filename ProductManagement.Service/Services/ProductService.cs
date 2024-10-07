@@ -68,9 +68,9 @@ namespace ProductManagement.Service.Services
             return product != null ? _mapper.Map<ProductModel>(product) : null;
         }
 
-        public async Task<ProductModel> UpdateProductAsync(int productId, CreateProductModel productModel)
+        public async Task<ProductModel> UpdateProductAsync(UpdateProductModel productModel)
         {
-            var updateProduct = await _unitOfWork.ProductsRepository.GetByIdAsync(productId);
+            var updateProduct = await _unitOfWork.ProductsRepository.GetByIdAsync(productModel.Id);
             if (updateProduct == null)
             {
                 throw new Exception("Product does not exist.");

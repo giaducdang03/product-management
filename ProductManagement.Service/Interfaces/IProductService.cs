@@ -17,7 +17,7 @@ namespace ProductManagement.Service.Interfaces
 
         Task<ProductModel> CreateProductAsync(CreateProductModel product);
 
-        Task<ProductModel> UpdateProductAsync(int productId, CreateProductModel productModel);
+        Task<ProductModel> UpdateProductAsync(UpdateProductModel productModel);
 
         Task<ProductModel> DeleteProductAsync(int productId);
     }

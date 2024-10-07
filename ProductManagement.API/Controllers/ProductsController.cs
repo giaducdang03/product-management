@@ -104,14 +104,14 @@ namespace ProductManagement.API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, CreateProductModel updateProductModel)
+        [HttpPut]
+        public async Task<IActionResult> UpdateProduct(UpdateProductModel updateProductModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var result = await _productService.UpdateProductAsync(id, updateProductModel);
+                    var result = await _productService.UpdateProductAsync(updateProductModel);
                     return Ok(result);
                 }
                 return ValidationProblem(ModelState);
