@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductManagement.Repository.Models;
 
@@ -11,9 +12,11 @@ using ProductManagement.Repository.Models;
 namespace ProductManagement.Repository.Migrations
 {
     [DbContext(typeof(FstoreDbContext))]
-    partial class FstoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241007062657_UpdateTableDb")]
+    partial class UpdateTableDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,6 +54,7 @@ namespace ProductManagement.Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MemberId"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -71,6 +75,7 @@ namespace ProductManagement.Repository.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 

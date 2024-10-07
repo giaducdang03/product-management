@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductManagement.Repository.Models;
 
@@ -11,9 +12,11 @@ using ProductManagement.Repository.Models;
 namespace ProductManagement.Repository.Migrations
 {
     [DbContext(typeof(FstoreDbContext))]
-    partial class FstoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241007071612_UpdateTableMember")]
+    partial class UpdateTableMember
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

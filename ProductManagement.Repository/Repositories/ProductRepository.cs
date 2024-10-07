@@ -53,6 +53,24 @@ namespace ProductManagement.Repository.Repositories
                 query = query.Where(s => s.CategoryId == filter.Category);
             }
 
+            if (filter.IsDelete != null)
+            {
+                query = query.Where(s => s.IsDelete == filter.IsDelete);
+            }
+
+            if (filter.MinPrice != null && filter.MaxPrice != null)
+            {
+                query = query.Where(s => s.UnitPrice >= filter.MinPrice && s.UnitPrice <= filter.MaxPrice);
+            }
+            else if (filter.MinPrice != null)
+            {
+                query = query.Where(s => s.UnitPrice >= filter.MinPrice);
+            }
+            else if (filter.MaxPrice != null)
+            {
+                query = query.Where(s => s.UnitPrice <= filter.MaxPrice);
+            }
+
             if (!string.IsNullOrWhiteSpace(filter.SortBy))
             {
                 switch (filter.SortBy.ToLower())

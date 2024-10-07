@@ -47,7 +47,9 @@ namespace ProductManagement.Service.Services
                 throw new Exception("Not found product. Can not delete.");
             }
 
-            _unitOfWork.ProductsRepository.Remove(deleteProduct);
+            deleteProduct.IsDelete = true;
+
+            _unitOfWork.ProductsRepository.UpdateAsync(deleteProduct);
             _unitOfWork.Save();
             return _mapper.Map<ProductModel>(deleteProduct);
         }

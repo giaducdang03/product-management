@@ -16,6 +16,8 @@ public partial class Product
     public decimal UnitPrice { get; set; }
 
     public int UnitsInStock { get; set; }
+    
+    public bool? IsDelete { get; set; } = false;
 
     public virtual Category? Category { get; set; }
 

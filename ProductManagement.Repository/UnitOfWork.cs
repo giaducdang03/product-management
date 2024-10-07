@@ -13,10 +13,10 @@ namespace ProductManagement.Repository
     {
         private readonly FstoreDbContext _context;
         private IGenericRepository<Category> _categoryRepository;
-        private IGenericRepository<Member> _memberRepository;
         private IGenericRepository<Order> _orderRepository;
         private IGenericRepository<OrderDetail> _orderDetailRepository;
         private IProductRepository _productRepository;
+        private IMemberRepository _memberRepository;
 
         public UnitOfWork(FstoreDbContext context)
         {
@@ -28,15 +28,6 @@ namespace ProductManagement.Repository
             get
             {
                 return _categoryRepository ??= new GenericRepository<Category>(_context);
-
-            }
-        }
-
-        public IGenericRepository<Member> MembersRepository
-        {
-            get
-            {
-                return _memberRepository ??= new GenericRepository<Member>(_context);
 
             }
         }
@@ -64,6 +55,15 @@ namespace ProductManagement.Repository
             get
             {
                 return _productRepository ??= new ProductRepository(_context) ;
+
+            }
+        }
+
+        public IMemberRepository MemberRepository
+        {
+            get
+            {
+                return _memberRepository ??= new MemberRepository(_context);
 
             }
         }

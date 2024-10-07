@@ -50,21 +50,19 @@ public partial class FstoreDbContext : DbContext
             entity.ToTable("Member");
 
             //entity.Property(e => e.MemberId).ValueGeneratedNever();
-            entity.Property(e => e.City)
-                .HasMaxLength(15)
-                .IsUnicode(false);
-            entity.Property(e => e.CompanyName)
-                .HasMaxLength(40)
-                .IsUnicode(false);
-            entity.Property(e => e.Country)
-                .HasMaxLength(15)
-                .IsUnicode(false);
+            entity.Property(e => e.FullName)
+                .HasMaxLength(100);
+            entity.Property(e => e.PhoneNumber)
+                .HasMaxLength(10);
+            entity.Property(e => e.Address)
+                .HasMaxLength(150);
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-            entity.Property(e => e.Password)
-                .HasMaxLength(30)
-                .IsUnicode(false);
+            entity.Property(e => e.PasswordHash)
+                .HasMaxLength(500);
+            entity.Property(e => e.Role)
+                .HasMaxLength(10);
         });
 
         modelBuilder.Entity<Order>(entity =>

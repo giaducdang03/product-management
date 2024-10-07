@@ -13,5 +13,6 @@ namespace ProductManagement.Repository.Interfaces
         Task<Pagination<Product>> GetProductPaging(PaginationParameter paginationParameter, ProductFilter productFilter);
 
         Task<Product> GetProductById(int id);
+
     }
 }

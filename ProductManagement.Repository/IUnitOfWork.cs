@@ -11,10 +11,10 @@ namespace ProductManagement.Repository
     public interface IUnitOfWork
     {
         IGenericRepository<Category> CategorysRepository { get; }
-        IGenericRepository<Member> MembersRepository { get; }
         IGenericRepository<Order> OrdersRepository { get; }
         IGenericRepository<OrderDetail> OrderDetailsRepository { get; }
         IProductRepository ProductsRepository { get; }
+        IMemberRepository MemberRepository { get; }
         int Save();
     }
 }

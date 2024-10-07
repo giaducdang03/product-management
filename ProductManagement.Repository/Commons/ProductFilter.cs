@@ -12,8 +12,17 @@ namespace ProductManagement.Repository.Commons
         [FromQuery(Name = "search")]
         public string? Search { get; set; }
 
-        [FromQuery(Name = "category")]
+        [FromQuery(Name = "category-id")]
         public int? Category { get; set; }
+
+        [FromQuery(Name = "min-price")]
+        public int? MinPrice { get; set; }
+
+        [FromQuery(Name = "max-price")]
+        public int? MaxPrice { get; set; }
+
+        [FromQuery(Name = "is-delete")]
+        public bool? IsDelete { get; set; }
 
         [FromQuery(Name = "sort-by")]
         public string? SortBy { get; set; }

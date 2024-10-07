@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -83,6 +84,7 @@ namespace ProductManagement.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> CreateProduct(CreateProductModel productModel)
         {
             try
@@ -105,6 +107,7 @@ namespace ProductManagement.API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> UpdateProduct(UpdateProductModel updateProductModel)
         {
             try
@@ -130,6 +133,7 @@ namespace ProductManagement.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "ADMIN")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             try

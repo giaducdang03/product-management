@@ -9,13 +9,15 @@ public partial class Member
 
     public string Email { get; set; } = null!;
 
-    public string CompanyName { get; set; } = null!;
+    public string FullName { get; set; } = null!;
 
-    public string City { get; set; } = null!;
+    public string? PhoneNumber { get; set; }
 
-    public string Country { get; set; } = null!;
+    public string? Address { get; set; }
 
-    public string Password { get; set; } = null!;
+    public string PasswordHash { get; set; } = null!;
+
+    public string Role {  get; set; } = null!;
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }
