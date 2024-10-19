@@ -33,6 +33,7 @@ namespace ProductManagement.Service.Services
             else
             {
                 Product newProduct = _mapper.Map<Product>(product);
+                newProduct.Status = (int) ProductStatus.ENABLE;
                 await _unitOfWork.ProductsRepository.AddAsync(newProduct);
                 _unitOfWork.Save();
                 return _mapper.Map<ProductModel>(newProduct);
@@ -47,7 +48,7 @@ namespace ProductManagement.Service.Services
                 throw new Exception("Not found product. Can not delete.");
             }
 
-            deleteProduct.IsDelete = true;
+            deleteProduct.Status = ProductStatus.DELETE;
 
             _unitOfWork.ProductsRepository.UpdateAsync(deleteProduct);
             _unitOfWork.Save();
@@ -98,6 +99,7 @@ namespace ProductManagement.Service.Services
             updateProduct.Weight = productModel.Weight;
             updateProduct.UnitPrice = productModel.UnitPrice;
             updateProduct.UnitsInStock = productModel.UnitsInStock;
+            updateProduct.Status = productModel.Status;
             
             _unitOfWork.ProductsRepository.UpdateAsync(updateProduct);
             _unitOfWork.Save();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductManagement.Repository.Commons;
+using System;
 using System.Collections.Generic;
 
 namespace ProductManagement.Repository.Models;
@@ -16,8 +17,8 @@ public partial class Product
     public decimal UnitPrice { get; set; }
 
     public int UnitsInStock { get; set; }
-    
-    public bool? IsDelete { get; set; } = false;
+
+    public ProductStatus Status { get; set; }
 
     public virtual Category? Category { get; set; }
 

@@ -21,12 +21,12 @@ namespace ProductManagement.Repository.Repositories
 
         public async Task<Product> GetProductById(int id)
         {
-            return await _context.Products.Include(x => x.Category).FirstOrDefaultAsync(x => x.ProductId == id);
+            return await _context.Products.Include(x => x.Category).FirstOrDefaultAsync(x => x.ProductId == id && x.Status != ProductStatus.DELETE);
         }
 
         public async Task<Pagination<Product>> GetProductPaging(PaginationParameter paginationParameter, ProductFilter productFilter)
         {
-            var query = _context.Products.Include(x => x.Category).AsQueryable();
+            var query = _context.Products.Include(x => x.Category).Where(x => x.Status != ProductStatus.DELETE).AsQueryable();
 
             // apply filter
             query = ApplyFiltering(query, productFilter);
@@ -53,9 +53,9 @@ namespace ProductManagement.Repository.Repositories
                 query = query.Where(s => s.CategoryId == filter.Category);
             }
 
-            if (filter.IsDelete != null)
+            if (filter.Status != null)
             {
-                query = query.Where(s => s.IsDelete == filter.IsDelete);
+                query = query.Where(s => s.Status == filter.Status);
             }
 
             if (filter.MinPrice != null && filter.MaxPrice != null)

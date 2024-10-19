@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ProductManagement.Repository.Commons;
 using ProductManagement.Repository.Models;
 using ProductManagement.Service.BussinessModels;
 using System;
@@ -13,9 +14,9 @@ namespace ProductManagement.Service.Mapper
     {
         public MapperConfigProfile()
         {
-            CreateMap<Product, ProductModel>().
-                ForMember(des => des.CategoryName, otp => otp.MapFrom(x => x.Category.CategoryName))
-                .ReverseMap();
+            CreateMap<Product, ProductModel>()
+                .ForMember(dest => dest.CategoryName, otp => otp.MapFrom(x => x.Category.CategoryName))
+                .ForMember(dest => dest.Status, otp => otp.MapFrom(x => x.Status.ToString()));
             CreateMap<CreateProductModel, Product>();
             
             CreateMap<Category, CategoryModel>();

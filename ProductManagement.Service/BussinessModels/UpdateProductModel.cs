@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductManagement.Repository.Commons;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,5 +12,8 @@ namespace ProductManagement.Service.BussinessModels
     {
         [Required]
         public int Id { get; set; }
+
+        [Required]
+        public ProductStatus Status { get; set; }
     }
 }

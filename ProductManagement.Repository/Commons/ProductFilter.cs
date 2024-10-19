@@ -21,8 +21,8 @@ namespace ProductManagement.Repository.Commons
         [FromQuery(Name = "max-price")]
         public int? MaxPrice { get; set; }
 
-        [FromQuery(Name = "is-delete")]
-        public bool? IsDelete { get; set; }
+        [FromQuery(Name = "status")]
+        public ProductStatus? Status { get; set; }
 
         [FromQuery(Name = "sort-by")]
         public string? SortBy { get; set; }

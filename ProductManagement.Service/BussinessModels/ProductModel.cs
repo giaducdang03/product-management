@@ -19,5 +19,7 @@ namespace ProductManagement.Service.BussinessModels
         public decimal UnitPrice { get; set; }
 
         public int UnitsInStock { get; set; }
+
+        public string? Status { get; set; }
     }
 }
